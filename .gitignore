@@ -1,0 +1,53 @@
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+summarizer_env/
+*.env
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Model and data storage
+models/
+*.model
+*.pkl
+
+# Processed data
+data/processed/*.csv
+data/processed/*.json
+
+# Logs and debugging
+*.log
+logs/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Testing and coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Sensitive information
+secrets.yml
+*.key
