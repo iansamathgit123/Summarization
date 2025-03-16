@@ -1,5 +1,5 @@
 # src/model.py
-
+# this is the main file that contains the model class and the main function to demonstrate the model usage
 import torch
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import yaml
