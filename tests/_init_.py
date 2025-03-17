@@ -1,5 +1,6 @@
 # tests/__init__.py
-
+# Initialization module for the tests package.
+# Provides configuration and utility functions for testing the Documentation Summarization AI project.
 """
 Initialization module for the tests package.
 Provides configuration and utility functions for testing the Documentation Summarization AI project.
