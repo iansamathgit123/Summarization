@@ -1,5 +1,5 @@
 # src/model.py
-# this is the main file that contains the model class and the main function to demonstrate the model usage
+# Main file containing the model class and demonstration function
 import torch
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import yaml
@@ -41,17 +41,22 @@ class DocumentationSummarizer:
         self.max_input_length = self.config['model']['max_input_length']
         self.max_output_length = self.config['model']['max_output_length']
     
-    def generate_summary(self, text):
+    def generate_summary(self, text, **kwargs):
         """
-        Generate abstractive summary for given text
+        Generate abstractive summary for given text with flexible length parameters
         
         Args:
             text (str): Input documentation text
+            **kwargs: Flexible keyword arguments for length control
         
         Returns:
             str: Generated summary
         """
         try:
+            # Use configuration defaults with flexible overrides
+            min_length = kwargs.get('min_length', 30)
+            max_length = kwargs.get('max_length', self.max_output_length)
+            
             # Preprocess input
             input_text = f"summarize: {text}"
             
@@ -66,7 +71,8 @@ class DocumentationSummarizer:
             # Generate summary
             summary_ids = self.model.generate(
                 inputs,
-                max_length=self.max_output_length,
+                min_length=min_length,
+                max_length=max_length,
                 num_return_sequences=1,
                 temperature=self.config['inference']['temperature'],
                 top_k=self.config['inference']['top_k'],
@@ -137,11 +143,19 @@ def main():
     and scientific computing.
     """
     
-    # Generate summary
-    summary = summarizer.generate_summary(sample_text)
-    print("Original Text Length:", len(sample_text))
-    print("Summary Length:", len(summary))
-    print("Generated Summary:", summary)
+    # Generate summary with default length
+    default_summary = summarizer.generate_summary(sample_text)
+    print("Default Summary:")
+    print(default_summary)
+    
+    # Generate summary with custom length
+    custom_summary = summarizer.generate_summary(
+        sample_text, 
+        min_length=20, 
+        max_length=50
+    )
+    print("\nCustom Length Summary:")
+    print(custom_summary)
 
 if __name__ == "__main__":
     main()
